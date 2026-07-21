@@ -1,0 +1,6 @@
+{
+  "name": "MarketFlow",
+  "description": "A high-fidelity modern financial terminal for monitoring indices, US stocks, crypto, and global 10Y bonds with interactive charts and watchlists.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
