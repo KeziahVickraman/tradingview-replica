@@ -20,7 +20,9 @@ import {
   MessageSquare,
   Sparkles,
   Flame,
-  CheckCircle2
+  CheckCircle2,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { 
   AreaChart, 
@@ -41,6 +43,21 @@ import ScreenerModal from './components/ScreenerModal';
 
 export default function App() {
   const [assets, setAssets] = useState<Asset[]>(INITIAL_ASSETS);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('marketflow_dark_mode');
+    return saved === 'true';
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('marketflow_dark_mode', 'true');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('marketflow_dark_mode', 'false');
+    }
+  }, [isDarkMode]);
+
   const [watchlistSymbols, setWatchlistSymbols] = useState<string[]>(['NI225 Japan', 'UKX FTSE 100', 'BTCUSD', 'EURUSD']);
   
   // Active states
@@ -169,7 +186,7 @@ export default function App() {
   const bonds = assets.filter(a => a.category === 'Bonds');
 
   return (
-    <div className="bg-background text-on-surface font-sans antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed">
+    <div className={`bg-background text-on-surface font-sans antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed transition-colors duration-300 ${isDarkMode ? 'dark' : ''}`}>
       
       {/* Dynamic Alerts Banner */}
       {alertMessage && (
@@ -187,7 +204,7 @@ export default function App() {
             <a className="font-headline-section text-lg font-extrabold text-on-background flex items-center group" href="#" onClick={() => window.location.reload()}>
               <span className="text-primary mr-1.5 transition-transform group-hover:scale-110">
                 <svg fill="none" height="22" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 18V13.7C4 13.06 4.25 12.45 4.7 12L10.3 7.3C10.75 6.9 11.25 6.7 11.8 6.7C12.35 6.7 12.85 6.9 13.3 7.3L19.3 12.7C19.75 13.15 20 13.76 20 14.4V18" stroke="currentColor" stroke-linecap="round" stroke-width="3"></path>
+                  <path d="M4 18V13.7C4 13.06 4.25 12.45 4.7 12L10.3 7.3C10.75 6.9 11.25 6.7 11.8 6.7C12.35 6.7 12.85 6.9 13.3 7.3L19.3 12.7C19.75 13.15 20 13.76 20 14.4V18" stroke="currentColor" strokeLinecap="round" strokeWidth="3"></path>
                 </svg>
               </span>
               <span className="tracking-tight text-on-surface font-bold text-base md:text-lg">MarketFlow</span>
@@ -200,7 +217,7 @@ export default function App() {
             >
               <Search className="text-outline mr-2 w-4 h-4 group-hover:text-primary transition-colors" />
               <span className="text-outline text-xs font-body-muted select-none flex-1">Search (Ctrl+K)</span>
-              <kbd className="font-mono text-[9px] bg-white border border-border-subtle px-1.5 py-0.2 rounded text-outline group-hover:text-on-surface transition-colors">⌘K</kbd>
+              <kbd className="font-mono text-[9px] bg-surface-container border border-border-subtle px-1.5 py-0.2 rounded text-outline group-hover:text-on-surface transition-colors">⌘K</kbd>
             </div>
           </div>
 
@@ -215,6 +232,13 @@ export default function App() {
 
           {/* Actions */}
           <div className="flex items-center space-x-3">
+            <button 
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="p-1.5 text-on-surface-variant hover:bg-surface-muted rounded-full transition-colors"
+              title={isDarkMode ? 'Switch to Day version' : 'Switch to Night version'}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+            </button>
             <button 
               onClick={() => triggerAlert('Language selected: English')}
               className="p-1.5 text-on-surface-variant hover:bg-surface-muted rounded-full transition-colors"
@@ -305,7 +329,7 @@ export default function App() {
                   return (
                     <div 
                       key={asset.symbol} 
-                      className="flex items-center justify-between group cursor-pointer hover:bg-white p-1.5 rounded-lg transition-all"
+                      className="flex items-center justify-between group cursor-pointer hover:bg-surface-container p-1.5 rounded-lg transition-all"
                       onClick={() => {
                         setFocusedAsset(asset);
                         triggerAlert(`Active chart set to ${asset.symbol}`);
@@ -391,7 +415,7 @@ export default function App() {
                         setFocusedAsset(index);
                         setIsDetailOpen(true);
                       }}
-                      className="bg-white border border-border-subtle rounded-xl p-4.5 transition-all hover:shadow-md hover:bg-surface-muted/30 cursor-pointer flex flex-col justify-between"
+                      className="bg-surface-container-lowest border border-border-subtle rounded-xl p-4.5 transition-all hover:shadow-md hover:bg-surface-muted/30 cursor-pointer flex flex-col justify-between"
                     >
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-3">
@@ -442,7 +466,7 @@ export default function App() {
                 </h2>
               </div>
 
-              <div className="bg-white border border-border-subtle rounded-2xl overflow-hidden shadow-xs">
+              <div className="bg-surface-container-lowest border border-border-subtle rounded-2xl overflow-hidden shadow-xs">
                 <div className="grid grid-cols-1 md:grid-cols-12">
                   
                   {/* Focus Highlight Card */}
@@ -480,7 +504,7 @@ export default function App() {
                       </div>
 
                       {/* Interactive focus stock chart */}
-                      <div className="h-44 w-full bg-white rounded-xl p-2 border border-border-subtle relative mt-2 shadow-inner">
+                      <div className="h-44 w-full bg-surface-container-lowest rounded-xl p-2 border border-border-subtle relative mt-2 shadow-inner">
                         <ResponsiveContainer width="100%" height="100%">
                           <AreaChart data={focusedAsset.history} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
                             <defs>
@@ -489,14 +513,14 @@ export default function App() {
                                 <stop offset="95%" stopColor={focusedAsset.change >= 0 ? '#089981' : '#F23645'} stopOpacity={0}/>
                               </linearGradient>
                             </defs>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#F0F3FA" vertical={false} />
+                            <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-subtle)" vertical={false} />
                             <Tooltip 
                               contentStyle={{ 
-                                backgroundColor: '#191b24', 
-                                color: '#ffffff', 
+                                backgroundColor: 'var(--color-surface-container)', 
+                                color: 'var(--color-on-surface)', 
                                 fontSize: '11px', 
                                 borderRadius: '6px',
-                                border: 'none'
+                                border: '1px solid var(--color-border-subtle)'
                               }} 
                             />
                             <Area 
@@ -520,7 +544,7 @@ export default function App() {
                   </div>
 
                   {/* List Sidebar - Top Gainers */}
-                  <div className="md:col-span-7 flex flex-col justify-between bg-white">
+                  <div className="md:col-span-7 flex flex-col justify-between bg-surface-container-lowest">
                     <div className="flex items-center justify-between border-b border-border-subtle px-5 py-3.5 bg-surface-container-low/40">
                       <span className="font-label-caps text-xs text-outline uppercase font-bold">Top Gainers (Pre-market)</span>
                       <Activity className="w-4 h-4 text-primary" />
@@ -694,7 +718,7 @@ export default function App() {
                 </h2>
               </div>
 
-              <div className="overflow-x-auto rounded-xl border border-border-subtle bg-white shadow-xs">
+              <div className="overflow-x-auto rounded-xl border border-border-subtle bg-surface-container-lowest shadow-xs">
                 <table className="w-full text-left border-collapse min-w-[500px]">
                   <thead className="bg-surface-container-high border-b border-border-subtle">
                     <tr>
@@ -750,12 +774,12 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-border-subtle py-12 mt-12">
+      <footer className="bg-surface-container-lowest border-t border-border-subtle py-12 mt-12">
         <div className="flex flex-col md:flex-row justify-between items-center px-6 w-full max-w-7xl mx-auto space-y-6 md:space-y-0">
           <div className="flex flex-col items-center md:items-start space-y-1.5">
             <div className="font-label-caps text-xs font-bold text-primary flex items-center space-x-1.5">
               <svg fill="none" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 18V13.7C4 13.06 4.25 12.45 4.7 12L10.3 7.3C10.75 6.9 11.25 6.7 11.8 6.7C12.35 6.7 12.85 6.9 13.3 7.3L19.3 12.7C19.75 13.15 20 13.76 20 14.4V18" stroke="currentColor" stroke-linecap="round" stroke-width="3"></path>
+                <path d="M4 18V13.7C4 13.06 4.25 12.45 4.7 12L10.3 7.3C10.75 6.9 11.25 6.7 11.8 6.7C12.35 6.7 12.85 6.9 13.3 7.3L19.3 12.7C19.75 13.15 20 13.76 20 14.4V18" stroke="currentColor" strokeLinecap="round" strokeWidth="3"></path>
               </svg>
               <span>MarketFlow Terminal</span>
             </div>
@@ -832,7 +856,7 @@ export default function App() {
       {/* Welcome / Get Started Modal */}
       {isWelcomeOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-fade-in">
-          <div className="bg-white w-full max-w-md rounded-2xl border border-border-subtle shadow-2xl p-6 relative animate-slide-up text-center">
+          <div className="bg-surface-container-lowest w-full max-w-md rounded-2xl border border-border-subtle shadow-2xl p-6 relative animate-slide-up text-center">
             <button 
               onClick={() => setIsWelcomeOpen(false)} 
               className="absolute top-4 right-4 p-1 text-outline hover:text-on-surface rounded-full hover:bg-surface-muted transition-colors"
@@ -852,7 +876,7 @@ export default function App() {
             <div className="space-y-3 mb-6 text-left bg-surface-container-low p-4 rounded-xl border border-border-subtle">
               <div className="flex items-start space-x-2.5 text-xs text-on-surface">
                 <CheckCircle2 className="w-4 h-4 text-status-positive flex-shrink-0 mt-0.5" />
-                <span><strong>Instant Search:</strong> Use <kbd className="bg-white px-1 py-0.2 border border-border-subtle rounded font-mono">⌘K</kbd> anywhere to search assets.</span>
+                <span><strong>Instant Search:</strong> Use <kbd className="bg-surface-container px-1 py-0.2 border border-border-subtle rounded font-mono">⌘K</kbd> anywhere to search assets.</span>
               </div>
               <div className="flex items-start space-x-2.5 text-xs text-on-surface">
                 <CheckCircle2 className="w-4 h-4 text-status-positive flex-shrink-0 mt-0.5" />

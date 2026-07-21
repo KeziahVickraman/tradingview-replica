@@ -68,7 +68,7 @@ export default function AssetDetailModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white w-full max-w-3xl rounded-2xl border border-border-subtle shadow-2xl overflow-hidden animate-slide-up flex flex-col max-h-[90vh]">
+      <div className="bg-surface-container-lowest w-full max-w-3xl rounded-2xl border border-border-subtle shadow-2xl overflow-hidden animate-slide-up flex flex-col max-h-[90vh]">
         
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border-subtle">
@@ -134,7 +134,7 @@ export default function AssetDetailModal({
                   onClick={() => setTimeframe(t)}
                   className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${
                     timeframe === t
-                      ? 'bg-white text-primary shadow-sm'
+                      ? 'bg-surface-container-lowest text-primary shadow-sm'
                       : 'text-outline hover:text-on-surface'
                   }`}
                 >
@@ -154,7 +154,7 @@ export default function AssetDetailModal({
                     <stop offset="95%" stopColor={isPositive ? '#089981' : '#F23645'} stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E0E3EB" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border-subtle)" />
                 <XAxis 
                   dataKey="time" 
                   stroke="#737687" 
@@ -172,12 +172,13 @@ export default function AssetDetailModal({
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#ffffff',
-                    border: '1px solid #E0E3EB',
+                    backgroundColor: 'var(--color-surface-container)',
+                    border: '1px solid var(--color-border-subtle)',
                     borderRadius: '8px',
                     fontFamily: 'Inter, sans-serif',
                     fontSize: '12px',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                    color: 'var(--color-on-surface)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
                   }}
                   formatter={(val: number) => [val.toLocaleString(undefined, { minimumFractionDigits: 2 }), 'Price']}
                 />

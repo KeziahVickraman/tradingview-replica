@@ -55,7 +55,7 @@ export default function SearchModal({
 
   return (
     <div id="search-modal-backdrop" className="fixed inset-0 z-50 flex items-start justify-center pt-24 bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white w-full max-w-xl rounded-xl border border-border-subtle shadow-2xl overflow-hidden animate-slide-up mx-4">
+      <div className="bg-surface-container-lowest w-full max-w-xl rounded-xl border border-border-subtle shadow-2xl overflow-hidden animate-slide-up mx-4">
         {/* Input area */}
         <div className="flex items-center px-4 py-3.5 border-b border-border-subtle">
           <Search className="text-outline mr-3 w-5 h-5" />

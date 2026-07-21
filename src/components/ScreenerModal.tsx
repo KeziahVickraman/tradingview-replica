@@ -58,7 +58,7 @@ export default function ScreenerModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white w-full max-w-4xl rounded-2xl border border-border-subtle shadow-2xl overflow-hidden animate-slide-up flex flex-col max-h-[85vh]">
+      <div className="bg-surface-container-lowest w-full max-w-4xl rounded-2xl border border-border-subtle shadow-2xl overflow-hidden animate-slide-up flex flex-col max-h-[85vh]">
         
         {/* Header */}
         <div className="p-6 border-b border-border-subtle bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -84,7 +84,7 @@ export default function ScreenerModal({
                 placeholder={`Search ${category}...`}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-9 pr-4 py-1.5 bg-white border border-border-subtle rounded-full text-xs font-body-main outline-none focus:border-primary w-48 transition-all"
+                className="pl-9 pr-4 py-1.5 bg-surface-container-lowest border border-border-subtle rounded-full text-xs font-body-main outline-none focus:border-primary w-48 transition-all"
               />
             </div>
             <button
@@ -116,7 +116,7 @@ export default function ScreenerModal({
                 <th className="px-6 py-3 font-label-caps text-label-caps text-text-muted text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-subtle bg-white">
+            <tbody className="divide-y divide-border-subtle bg-surface-container-lowest">
               {sorted.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="text-center py-12 text-outline text-body-muted">

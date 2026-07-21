@@ -103,7 +103,7 @@ export default function CommunityDrawer({ isOpen, onClose }: CommunityDrawerProp
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Main Panel */}
-      <div className="relative bg-white w-full max-w-md h-full flex flex-col shadow-2xl border-l border-border-subtle animate-slide-left z-10">
+      <div className="relative bg-surface-container-lowest w-full max-w-md h-full flex flex-col shadow-2xl border-l border-border-subtle animate-slide-left z-10">
         
         {/* Header */}
         <div className="p-5 border-b border-border-subtle flex items-center justify-between bg-surface-container-low">
@@ -131,7 +131,7 @@ export default function CommunityDrawer({ isOpen, onClose }: CommunityDrawerProp
         <div className="px-5 py-2.5 bg-surface-muted border-b border-border-subtle flex items-center space-x-2 overflow-x-auto hide-scrollbar">
           <span className="text-[10px] font-bold uppercase tracking-wider text-outline font-label-caps whitespace-nowrap">Hot Discussed:</span>
           {['NVDA', 'BTCUSD', 'TSLA', 'AAPL', 'USA10Y'].map((t) => (
-            <span key={t} className="bg-white px-2 py-0.5 rounded border border-border-subtle text-[11px] font-semibold text-on-surface flex items-center space-x-1 flex-shrink-0">
+            <span key={t} className="bg-surface-container-lowest px-2 py-0.5 rounded border border-border-subtle text-[11px] font-semibold text-on-surface flex items-center space-x-1 flex-shrink-0">
               <TrendingUp className="w-2.5 h-2.5 text-status-positive" />
               <span>{t}</span>
             </span>
@@ -174,8 +174,8 @@ export default function CommunityDrawer({ isOpen, onClose }: CommunityDrawerProp
 
                   <div className={`p-3 rounded-xl text-sm ${
                     isUser ? 'bg-primary text-white rounded-tr-none' :
-                    isAI ? 'bg-indigo-50 border border-indigo-100 text-on-surface rounded-tl-none' :
-                    'bg-white border border-border-subtle text-on-surface rounded-tl-none'
+                    isAI ? 'bg-indigo-50/50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/40 text-on-surface rounded-tl-none' :
+                    'bg-surface-container-lowest border border-border-subtle text-on-surface rounded-tl-none'
                   } shadow-sm leading-normal`}>
                     {msg.text}
                   </div>
@@ -191,13 +191,13 @@ export default function CommunityDrawer({ isOpen, onClose }: CommunityDrawerProp
         </div>
 
         {/* Input box */}
-        <form onSubmit={handleSend} className="p-4 border-t border-border-subtle bg-white flex items-center space-x-2">
+        <form onSubmit={handleSend} className="p-4 border-t border-border-subtle bg-surface-container-lowest flex items-center space-x-2">
           <input
             type="text"
             placeholder="Discuss market activity, share ideas..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-1 bg-surface-muted px-4 py-2.5 rounded-full border border-border-subtle outline-none font-body-main text-sm focus:border-primary focus:bg-white transition-all placeholder-outline text-on-surface"
+            className="flex-1 bg-surface-muted px-4 py-2.5 rounded-full border border-border-subtle outline-none font-body-main text-sm focus:border-primary focus:bg-surface-container-lowest transition-all placeholder-outline text-on-surface"
           />
           <button 
             type="submit"
